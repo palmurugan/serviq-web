@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { RatingStars } from '../../../components/RatingStars';
 import { DateSlotPicker } from '../../../components/DateSlotPicker';
 
-const ServiceDetailPage = ({}) => {
+const ServiceDetailPage = ({ }) => {
     const router = useRouter();
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedSlot, setSelectedSlot] = useState('');
@@ -113,12 +113,24 @@ const ServiceDetailPage = ({}) => {
                                     onDateChange={setSelectedDate}
                                     onSlotChange={setSelectedSlot}
                                 />
+                                {selectedDate && selectedSlot && (
+                                    <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                                        <p className="text-sm font-medium text-blue-900">
+                                            Selected: {new Date(selectedDate).toLocaleDateString('en-US', {
+                                                weekday: 'long',
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric'
+                                            })} at {selectedSlot}
+                                        </p>
+                                    </div>
+                                )}
                                 <button
                                     onClick={() => onProceedToBooking({ provider, date: selectedDate, slot: selectedSlot })}
                                     disabled={!canProceed}
                                     className={`w-full mt-6 py-3 rounded-lg font-semibold transition-colors ${canProceed
-                                            ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                         }`}
                                 >
                                     Proceed to Booking
